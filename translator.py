@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #======================================================================
 #
@@ -614,8 +614,8 @@ class BaiduTranslator (BasicTranslator):
         output = ''
         result = resp['trans_result']
         for item in result:
-            output += '' + item['src'] + '\n'
-            output += ' * ' + item['dst'] + '\n'
+            #output += '' + item['src'] + '\n'
+            output += '' + item['dst'] + '\n'
         return output
 
 
@@ -726,6 +726,10 @@ def main(argv = None):
         print('bad engine name: ' + engine)
         return -1
     translator = cls()
+#----------------改动的地方------------------------确定是不是一个单词
+    if len(args)==1 and translator.check_english(text):
+        return 0;
+#----------------改动结束--------------------------
     res = translator.translate(sl, tl, text)
     if 'json' in options:
         text = json.dumps(res)
@@ -822,6 +826,5 @@ if __name__ == '__main__':
         return 0
     # test9()
     main()
-
 
 
